@@ -115,7 +115,7 @@ function GestionStock() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/api/gestion-stocks"); // Remplacez 'url_de_votre_api' par API qui récupère les données
+      const response = await axios.get("http://localhost:8000/api/gestion-stocks");
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -129,8 +129,8 @@ function GestionStock() {
 
   const handleAdd = async () => {
     try {
-      const response = await axios.post("/api/gestion-stocks", formData);
-      fetchData();
+      const response = await axios.post("http://localhost:8000/api/gestion-stocks", formData);
+      fetchData(); // Fetch data after adding
     } catch (error) {
       console.error("Error adding data:", error);
     }
@@ -138,18 +138,17 @@ function GestionStock() {
 
   const handleUpdate = async (id) => {
     try {
-      const response = await axios.put(`/api/gestion-stocks/${id}`, formData);
-      fetchData();
+      const response = await axios.put(`http://localhost:8000/api/gestion-stocks/${id}`, formData);
+      fetchData(); // Fetch data after updating
     } catch (error) {
       console.error("Error updating data:", error);
     }
   };
-
   
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`/api/gestion-stocks/${id}`);
-      fetchData();
+      const response = await axios.delete(`http://localhost:8000/api/gestion-stocks/${id}`);
+      fetchData(); // Fetch data after deleting
     } catch (error) {
       console.error("Error deleting data:", error);
     }
