@@ -65,38 +65,7 @@ const dataChart = [
 
 
 function GestionStock() {
-  const [data, setData] = useState([
-  {
-      idCout: 1,
-      dateCommande: "01/03/2023",
-      ammonix: 200000,
-      tovex: 200,
-      detos500ms: 3000,
-      raccord17: 20000,
-      raccord25: 10000,
-      raccord42: 10000,
-      raccord65: 10000,
-      raccord100: 10000,
-      lign: 50000,
-      aei: 2000,
-      etatCout: "Ajout",
-    },
-    {
-      idCout: 2,
-      dateCommande: "01/04/2024",
-      ammonix: 200000,
-      tovex: 200,
-      detos500ms: 3000,
-      raccord17: 20000,
-      raccord25: 10000,
-      raccord42: 10000,
-      raccord65: 10000,
-      raccord100: 10000,
-      lign: 50000,
-      aei: 2000,
-      etatCout: "Ajout",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
     date: "",
     id: "",
@@ -146,7 +115,7 @@ function GestionStock() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("url_de_votre_api"); // Remplacez 'url_de_votre_api' par API qui récupère les données
+      const response = await axios.get("/api/gestion-stocks"); // Remplacez 'url_de_votre_api' par API qui récupère les données
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -158,16 +127,32 @@ function GestionStock() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleAdd = () => {
-    // Code pour ajouter une entrée à la base de données
+  const handleAdd = async () => {
+    try {
+      const response = await axios.post("/api/gestion-stocks", formData);
+      fetchData();
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
   };
 
-  const handleUpdate = () => {
-    // Code pour mettre à jour une entrée dans la base de données
+  const handleUpdate = async (id) => {
+    try {
+      const response = await axios.put(`/api/gestion-stocks/${id}`, formData);
+      fetchData();
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
   };
 
-  const handleDelete = () => {
-    // Code pour supprimer une entrée de la base de données
+  
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`/api/gestion-stocks/${id}`);
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
   };
 
   return (
@@ -254,9 +239,6 @@ function GestionStock() {
         <div className="form-container">
           {/* Partie 2: Formulaire */}
           <form>
-            {/* <table>
-              <tr>
-                <td> */}
             <div className="formRow">
               <div className="formGroup">
                 <label>Date:</label>
@@ -267,8 +249,6 @@ function GestionStock() {
                   onChange={handleInputChange}
                 />
               </div>
-              {/* </td>
-                 <td> */}
               <div className="formGroup">
                 <label>id:</label>
                 <input
@@ -279,10 +259,6 @@ function GestionStock() {
                 />
               </div>
             </div>
-            {/* </td>
-              </tr>
-              <tr>
-                <td> */}
             <div className="formRow">
               <div className="formGroup">
                 <label>Quantité Ammonix:</label>
@@ -303,10 +279,6 @@ function GestionStock() {
                 />
               </div>
             </div>
-            {/* </td>
-              </tr>
-              <tr>
-                <td> */}
             <div className="formRow">
               <div className="formGroup">
                 <label>Nbr Detos500ms:</label>

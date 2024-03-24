@@ -4,7 +4,7 @@ import "../styles/CommandPage.css";
 function CommandPage2() {
   const [formData, setFormData] = useState({
     date: "",
-    Num_Commande: "",
+    Num_Commande:"",
     id_commande: "",
     panneau: "",
     tranche: "",
@@ -161,6 +161,7 @@ function CommandPage2() {
                     value={formData.panneau}
                     onChange={handleChange}
                   >
+                    <option value="P1">choisiser une Panneau</option>
                     <option value="P1">P1</option>
                     <option value="P2">P2</option>
                     <option value="P3">P3</option>
@@ -200,16 +201,17 @@ function CommandPage2() {
                 </div>
               </td>
               <td>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label>Num Commande:</label>
                   <input
                     type="number"
                     id="Num_Commande"
+                    name="Num_Commande"
                     value={formData.Num_Commande}
                     onChange={handleChange}
                     required
                   />
-                </div>
+                </div> */}
               </td>
               <td>
                 <div className="form-group">
